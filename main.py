@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from sqlalchemy.orm import Session
 import services, model, schema
 from database import engine, get_db, database
+import uvicorn
 
 # Create database tables from models
 model.Base.metadata.create_all(bind=engine)
@@ -42,3 +43,6 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
 
 
 # TODO: create filter and groups for stats - e.g most common names, average age, race and etc
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
